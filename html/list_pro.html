@@ -1,0 +1,17 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.flatpickr-calendar').remove();
+  $("#results" ).load( "../php/data_pro.php"); //load initial records
+  
+  //executes code below when user click on pagination links
+  $("#results").on("click", ".pagination a", function (e){
+    e.preventDefault();
+    var page = $(this).attr("data-page"); //get page number from link
+    $("#results").load("../php/data_pro.php",{"id":page});
+  });
+});
+</script>
+
+<div id="results">
+  <!-- aqui va el contenido de la lista -->
+</div>

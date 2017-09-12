@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Clientes</title>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.flatpickr-calendar').remove();
+})
+</script>
+
+</head>
+<body>
+
+<div class="box">
+<section class="section">
+  <form id="formAddUsr">
+    <table class="table is-bordered">
+      <thead><th colspan="7" style="text-align:center;">Registro de Usuario</th></thead>
+        <tbody>
+          <tr>
+            <td>Nombre</td>
+            <td>
+              <p class="control has-icon has-icon-right">
+                <input type="text" name="nomApe[0]" class="input cap" size="10" autocomplete="off" required>
+                <span class="icon is-small">
+                  <i class="fa"></i>
+                </span>
+              </p>
+            </td>
+          </tr>
+          
+          <tr>
+            <td>Apellido</td>
+            <td>
+              <p class="control has-icon has-icon-right">
+                <input type="text" name="nomApe[1]" class="input cap" size="10" autocomplete="off" required>
+                <span class="icon is-small">
+                  <i class="fa"></i>
+                </span>
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Nombre de Usuario</td>
+            <td>
+              <p class="control has-icon has-icon-right">
+                <input type="text" name="usu" class="input" size="10" autocomplete="off" required>
+                <span class="icon is-small">
+                  <i class="fa"></i>
+                </span>
+              </p>
+            </td>
+          </tr>
+          
+          <tr>  
+            <td>Contraseña</td>
+            <td>
+              <p class="control has-icon has-icon-right">
+                <input type="password" id="pass" name="pass" class="input" size="10" autocomplete="off" required>
+                <span class="icon is-small">
+                  <i class="fa"></i>
+                </span>
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Confirmar</td>
+            <td>
+              <p class="control has-icon has-icon-right">
+                <input type="password" id="rpass" name="rpass" class="input" size="10" autocomplete="off" required>
+                <span class="icon is-small">
+                  <i class="fa"></i>
+                </span>
+              </p>
+            </td>
+          </tr>
+          
+          <tr>
+            <td>Tipo</td>
+            <td>
+              <div class="field">
+                <p class="control">
+                  <span class="select">
+                    <select name="lvl" required>
+                      <option value="">Seleccione</option>
+                      <option value="1">Administrador</option>
+                      <option value="2">Secretari@</option>
+                    </select>
+                  </span>
+                </p>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>E-mail</td>
+             <td>
+              <p class="control has-icon has-icon-right">
+                <input type="email" name="email" class="input" size="10" autocomplete="off" required>
+                <span class="icon is-small">
+                  <i class="fa"></i>
+                </span>
+              </p>
+            </td>
+          </tr>
+        </tbody>
+        <input type="hidden" name="quest" value="add">
+      <tfoot>
+        <tr>
+          <td colspan="7" class="has-text-centered">
+            <button type="submit" class="button is-info">Procesar</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </form>
+</section>
+</div>
+
+<div id="content"></div>
+<style type="text/css">
+  .cap{
+    text-transform: capitalize;
+  }
+</style>
+</body>
+</html>

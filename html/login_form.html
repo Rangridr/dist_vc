@@ -1,0 +1,93 @@
+<div id="modal-ter" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image is-128x128">
+            <img src="../img/user.png" alt="Image">
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content">
+            <form id="login">
+              <input type="text" id="usu" name="usu" class="input is-medium" autocomplete="off" placeholder="Usuario" required>
+              <br>&nbsp;
+              <input type="password" id="pass" name="pass" class="input is-medium" placeholder="Contraseña" required>
+            </form>
+          </div>
+          <nav class="level">
+            <div class="level-left">
+              <button type="submit" form="login" class="button level-item is-primary">Procesar</button>
+            </div>
+          </nav>
+        </div>
+      </article>
+    </div>
+  </div>
+  <button class="modal-close"></button>
+</div>
+
+<script type="text/javascript">
+  $('input').hover(function(){
+    $(this).addClass('is-dark');
+    },
+    function(){
+      $(this).removeClass('is-dark');
+    }
+  );
+</script>
+
+<div id="modal-direc" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <article class="media">
+        <div class="media-content">
+          <div class="content">
+            <article class="media">
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    Sector el Rosal Calle Guadalajara<br>
+                    Tovar, Estado Mérida.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <button class="modal-close"></button>
+</div>
+
+<div id="modal-cont" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+      <article class="media">
+        <div class="media-content">
+          <div class="content">
+            <article class="media">
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Contacto:</strong>
+                    <br>
+                    Facebook: Johan Alberto Vergara<br>
+                    Twitter: @albertovergara1<br>
+                    Correo: johan_vergara@hotmail.com<br>
+                    Teléfonos: 0416-4746441 - 0424-7382614
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <button class="modal-close"></button>
+</div>

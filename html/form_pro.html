@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Productos</title>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.flatpickr-calendar').remove();
+  })
+</script>
+</head>
+<body>
+
+<div class="box">
+<section class="section">
+  <form id="formPro">
+    <table class="table is-bordered">
+      <thead><th colspan="3" style="text-align:center;">Registro de Productos</th></thead>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Cantidad</th>
+          <th>Precio por Unidad</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <p class="control has-icon has-icon-right">
+              <input type="text" name="nom" class="input" size="10" autocomplete="off" required>
+              <span class="icon is-small">
+                <i class="fa"></i>
+              </span>
+            </p>
+          </td>
+          <td>
+            <p class="control has-icon has-icon-right">
+              <input type="text" name="cant" class="input" size="10" autocomplete="off" required>
+              <span class="icon is-small">
+                <i class="fa"></i>
+              </span>
+          </td>
+          <td>
+            <p class="control has-icon has-icon-right">
+              <input type="text" name="precio" class="input" size="10" autocomplete="off" required>
+              <span class="icon is-small">
+                <i class="fa"></i>
+              </span>
+            </p>
+          </td>
+          <input type="hidden" name="quest" value="add">
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="3" class="has-text-centered">
+            <button type="submit" class="button is-info">Procesar</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </form>
+</section>
+</div>
+<div id="content"></div>
+</body>
+</html>

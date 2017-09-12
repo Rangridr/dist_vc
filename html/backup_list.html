@@ -1,0 +1,51 @@
+<script type="text/javascript">
+	function eliminar(arch){
+		if(confirm('Desea Eliminar este Respaldo')){
+			$.ajaxSetup({cache:false});
+			$.getJSON('../php/backup_del.php', {arch: arch}, function(data){
+				if(data[0].info == 1){
+					alert('Respaldo Eliminado');
+					$.ajaxSetup({cache: false});
+					$.getJSON('../php/backup_table.php', function(data) {
+						$('#datosdb').html(data[0].tabla);
+					});							
+				}else{
+					alert('Error al Eliminar el Respaldo');
+					$.ajaxSetup({cache: false});
+					$.getJSON('../php/backup_table.php', function(data) {
+						$('#datosdb').html(data[0].tabla);
+					});
+				}
+			});
+		}		
+	}
+	
+	function cargar(arch){		
+		if(confirm('Desea Modificar la Base de Datos Actual por la Data de este Respaldo')){
+			$.ajaxSetup({cache:false});
+			$.getJSON('../php/backup_upl.php', {arch: arch}, function(data){
+				if(data[0].info == 1){
+					alert('Se Modifico la Base de Datos');
+          window.location.reload(true);
+				}else{
+					alert('Error al Cargar el Respaldo');					
+				}
+			});
+		}				
+	}
+
+</script>
+
+<div class="modal-body" style="min-height:400px">
+  <div id="datosdb">
+    <script type="text/javascript">
+      $(document).ready(function (){
+      	$('.flatpickr-calendar').remove();
+        $.ajaxSetup({cache: false});
+        $.getJSON('../php/backup_table.php', function(data) {
+          $('#datosdb').html(data[0].tabla);
+        });	
+      });
+    </script>
+  </div>
+</div>
