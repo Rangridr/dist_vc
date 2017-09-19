@@ -294,45 +294,38 @@ $(document).on('submit', '#formUpdNe', function(e){
 })
 
 /* ###### FACTURA ###### */
+$(document).on('click', '#wat_fac', function(){
+  cl = $(this).val();
+
+  $.ajax({
+    type: 'POST',
+    url: '../php/factura_cliente.php',
+    data: {val: cl},
+    dataType: 'html'
+  })
+  .done(function(html){
+    $('#wrap').html(html);
+  })
+})
+
 $(document).on('click', '#fac_ven', function(){
-  var cli = $(this);
-  var d = new Date();
-  var dd = d.getDate();
-  var mm = d.getMonth() + 1;
-  var yy = d.getFullYear();
+  var cl = $(this).val();
+  var arr = cl.split(',');
 
-  if(dd == '1'){dd = '01';}
-  else if(dd == '2'){var dd = '02';}
-  else if(dd == '3'){var dd = '03';}
-  else if(dd == '4'){var dd = '04';}
-  else if(dd == '5'){var dd = '05';}
-  else if(dd == '6'){var dd = '06';}
-  else if(dd == '7'){var dd = '07';}
-  else if(dd == '8'){var dd = '08';}
-  else if(dd == '9'){var dd = '09';}
-
-  if(mm == '1'){mm = '01';}
-  else if(mm == '2'){var mm = '02';}
-  else if(mm == '3'){var mm = '03';}
-  else if(mm == '4'){var mm = '04';}
-  else if(mm == '5'){var mm = '05';}
-  else if(mm == '6'){var mm = '06';}
-  else if(mm == '7'){var mm = '07';}
-  else if(mm == '8'){var mm = '08';}
-  else if(mm == '9'){var mm = '09';}
-
-  var date = yy+'-'+mm+'-'+dd;
+  var cli = arr[0];
+  var date = arr[1];
 
   $.ajax({
     type: 'POST',
     url: '../php/factura_venta.php',
     data: {
-      val: $(cli).val(),
+      val: cli,
       dat: date
     },
     dataType: 'html'
   })
   .done(function(html){
-    $('#wrap').html(html);
+    var newWindow = window.open()
+    newWindow.document.write(html)
   })
 })
