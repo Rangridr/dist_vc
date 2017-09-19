@@ -27,36 +27,11 @@ if(!$res = $db->query($query)){
 	exit();
 }
 ?>
-
-<link rel="stylesheet" type="text/css" href="../css/flatpickr.css">
-<link rel="stylesheet" type="text/css" href="../css/themes/material_blue.css">
-<script type="text/javascript" src="../js/flatpickr.js"></script>
-<script type="text/javascript" src="../js/l10n/es.js"></script>
-
-<script type="text/javascript">
-  $('#pick').flatpickr({
-    locale: 'es',
-    altInput: true,
-    maxDate: 'today'
-  });
-</script>
-
+<link rel="stylesheet" type="text/css" href="../css/bulma.css">
 <input type="hidden" id="cli" value="<?php echo $cliente ?>">
 <div class="column box">
-	<div class="field has-addons has-addons-centered">
-		<p class="control">
-	    <input id="pick" class="input" type="text" placeholder="Por Fecha">
-	  </p>
-	  <p class="control">
-	    <button id="send" class="button is-info">
-	      <i class="fa fa-search"></i>
-	    </button>
-	  </p>
-	</div>
 	<?php if($res->num_rows): ?>
-    <div id="details">
-    <link rel="stylesheet" type="text/css" href="../css/bulma.css">
-	<table class="table is-narrow is-bordered">
+	<table width="100%" class="table is-narrow is-bordered">
   	<thead>
       <th colspan="4" style="text-align: center;">Control de Ventas</th>
     </thead>
@@ -90,57 +65,11 @@ if(!$res = $db->query($query)){
       <td><?php echo $r['total'] ?></td>
     </tr>
   </table>
-  </div>
-  <table class="table">
-  <tfoot>
-    <tr>
-      <td colspan="4" class="has-text-centered">
-        <button class="button is-small is-info" id="print">Imprimir</button>
-        <button class="button is-small is-warning" id="c_pr">Regresar</button>
-      </td>
-    </tr>
-  </tfoot>
-	</table>
-	<?php	else: ?>
-	<article class="message is-dark">
-    <div class="message-header">
-      <p>Tabla Vacia</p>
-    </div>
-    <div class="message-body has-text-centered">
-      <strong>No hay resultados</strong><br><br>
-      <button class="button is-warning" id="c_pr">Regresar</button>
-    </div>
-  </article>
   <?php
   endif;?>
 </div>
 
 <script type="text/javascript">
-  $('#send').click(function(){
-    var date = $('#pick').val();
-    var cl = $('#cli').val();
-    if(date === ''){
-      return false;
-    }
-    
-    $.ajax({
-      type: 'post',
-      data: {dat: date, val: cl},
-      dataType: 'html',
-      url: '../php/factura_venta.php'
-    })
-    .done(function(datos){
-      $('#wrap').html(datos)
-    })
-  })
-
-  $('#print').on('click', function(){
-    var cont = document.getElementById('details');
-    var win = window.open();
-    win.document.write(cont.innerHTML);
-    win.document.close()
-    win.focus();
-    win.print();
-    win.close();
-  })
+ window.print();
+ window.close();
 </script>

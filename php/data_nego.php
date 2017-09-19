@@ -29,7 +29,7 @@ if(($_COOKIE['nom'] == null) || ($_COOKIE['usu'] == null) || ($_COOKIE['lvl'] ==
   <div class="box">
     <section class="section">
     <?php if($results->num_rows) : ?>
-      <table class="table is-narrow is-striped">
+      <table width="100%" class="table is-narrow is-striped">
         <thead>
           <th>Nombre</th>
           <th>RIF</th>

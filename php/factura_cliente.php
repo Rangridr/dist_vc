@@ -19,17 +19,12 @@ if(($_COOKIE['nom'] == null) || ($_COOKIE['usu'] == null) || ($_COOKIE['lvl'] ==
     $id = 1; //if there's no page number, set it to 1
   }
 
-  $today = date('Y-d-m');
-  $ns = isset($_POST['ns']) ? $_POST['ns'] : '';
+  $fecha = isset($_POST['dat']) ? $_POST['dat'] : '';
+  $cl = isset($_POST['val']) ? $_POST['val'] : '';
 
   $page_position = (($id-1) * $limit);
   
-  //$query = "SELECT ventas.fecha, ventas.id AS id_ven, ventas.id_prod, ventas.cant, ventas.valor, ventas.t_pago, ventas.c_pago, ventas.cliente, productos.id, productos.nom, negocios.nom AS cl_nom, negocios.rif FROM (ventas INNER JOIN productos ON ventas.id_prod = productos.id) INNER JOIN negocios ON ventas.cliente = negocios.rif WHERE ventas.fecha LIKE '%$fe%' ORDER BY ventas.fecha ASC LIMIT $page_position, $limit";
-
-  //$query = "SELECT ventas.fecha, ANY_VALUE(negocios.nom) AS nom, ANY_VALUE(negocios.rif) AS rif FROM ventas INNER JOIN negocios ON ventas.cliente = negocios.rif WHERE ventas.fecha LIKE '%$fe%' GROUP BY ventas.fecha LIMIT $page_position, $limit";
-
-  $query = "SELECT ventas.cliente, negocios.nom, negocios.rif FROM ventas INNER JOIN negocios ON ventas.cliente = negocios.rif WHERE negocios.nom LIKE '%$ns%' OR negocios.rif LIKE '%$ns%' GROUP BY ventas.cliente LIMIT $page_position, $limit";
-
+  $query = "SELECT ANY_VALUE(ventas.id) AS id, ventas.fecha FROM ventas INNER JOIN negocios ON ventas.cliente = negocios.rif WHERE ventas.cliente = '$cl' AND ventas.fecha LIKE '%$fecha%' GROUP BY ventas.fecha ORDER BY ventas.fecha ASC LIMIT $page_position, $limit";
 
   if(!$results = $db->query($query)){
     echo $db->error;
@@ -42,40 +37,55 @@ if(($_COOKIE['nom'] == null) || ($_COOKIE['usu'] == null) || ($_COOKIE['lvl'] ==
 <head>
 <meta charset="utf-8">
 
+<script type="text/javascript">
+  $('#picdate').flatpickr({
+    locale: 'es',
+    altInput: true
+  });
+</script>
+
 </head>
 
 <body>
 <div class="box">
 <div class="field has-addons has-addons-centered">
   <p class="control">
-    <input id="ns" class="input" type="search" placeholder="Buscar Nombre/R.I.F" value="<?php echo $ns ?>">
+    <input id="picdate" class="input" type="search" placeholder="Buscar Por Fecha" value="<?php echo $fecha ?>">
   </p>
   <p class="control">
-    <button id="search" class="button is-info">
+    <button id="sdate" class="button is-info">
       <i class="fa fa-search"></i>
     </button>
   </p>
 </div>
+<input type="hidden" id="cl" value="<?php echo $cl; ?>">
 <?php if($results->num_rows) : ?>
   <table width="100%" class="table is-bordered is-small">
     <thead>
-      <td>Cliente</td>
-      <td>RIF</td>
-      <td class="has-text-centered">Ver Facturas</td>
+      <td>N° Factura</td>
+      <td>Fecha</td>
+      <td class="has-text-centered">Facturar</td>
     </thead>
     <?php while ($row = $results->fetch_assoc()) : ?>
     <tbody>
-      <td><?php echo $row['nom'] ?></td>
-      <td><?php echo $row['rif'] ?></td>
+      <td><?php echo $row['id'] ?></td>
+      <td>
+        <?php
+        $x = $row['fecha'];
+        $f = explode('-', $x);
+        $fixed = $f[2]."/".$f[1]."/".$f[0];
+        echo $fixed;
+        ?>
+      </td>
       <td class="has-text-centered">
-        <button class="button is-small is-success" id="wat_fac" value="<?php echo $row['rif'] ?>">
+        <button class="button is-small is-success" id="fac_ven" value='<?php echo $cl.','.$x ?>'>
           <span class="icon is-small">
-            <i class="fa fa-book"></i>
+            <i class="fa fa-print"></i>
           </span>
         </button>
       </td>
       <?php endwhile;
-      $squery = "SELECT ventas.cliente, negocios.nom, negocios.rif FROM ventas INNER JOIN negocios ON ventas.cliente = negocios.rif GROUP BY ventas.cliente";
+      $squery = "SELECT ventas.fecha FROM ventas INNER JOIN negocios ON ventas.cliente = negocios.rif WHERE ventas.cliente = '$cl' AND ventas.fecha LIKE '%$fecha%' GROUP BY ventas.fecha";
       $fields = $db->query($squery);
       $total_rows = $fields->num_rows;
       $total = ceil($total_rows/$limit);
@@ -111,6 +121,11 @@ if(($_COOKIE['nom'] == null) || ($_COOKIE['usu'] == null) || ($_COOKIE['lvl'] ==
               <?php endfor; ?>
             </nav>
           </td>
+          <tr>
+            <td colspan="3" class="has-text-centered">
+              <button class="button is-small is-warning" id="c_pr">Regresar</button>
+            </td>
+          </tr>
         </tfoot>
       </table><?php else : ?>
     <article class="message is-dark">
@@ -124,6 +139,28 @@ if(($_COOKIE['nom'] == null) || ($_COOKIE['usu'] == null) || ($_COOKIE['lvl'] ==
   <?php endif; ?>
 </div>
 <div id="content"></div>
+
+<script type="text/javascript">
+  
+//executes code below when user click on pagination links
+$(document).on("click", ".pagination a", function (e){
+  e.preventDefault();
+  var cli = $('#cl').val();
+  var page = $(this).attr("data-page"); //get page number from link
+  var fecha = $('#picdate').val();
+  $(".box").load("../php/factura_cliente.php",{id:page, dat:fecha, val:cli});
+});
+
+$(document).on('click', '#sdate', function(){
+  var cli = $('#cl').val();
+  var fecha = $('#picdate').val();
+  if(fecha === ''){
+    return false;
+  }
+  $(".box").load("../php/factura_cliente.php",{dat:fecha, val:cli});
+})
+</script>
+
 </body>
 </html>
 

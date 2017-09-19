@@ -1,6 +1,6 @@
 <?php
 	$datostabla = '<div class="box">';
-	$datostabla .='<table class="table is-stripped is-narrow is-bordered">';
+	$datostabla .='<table width="100%" class="table is-stripped is-narrow is-bordered">';
 
 	if ($gestor = opendir($_SERVER['DOCUMENT_ROOT'].'/backup/')){
 		
