@@ -1,0 +1,116 @@
+<div class="box">
+  <section class="section">
+    <form id="formVenta">
+      <table width="100%" class="table is-bordered">
+        <thead><th colspan="4" style="text-align:center;">Registro de Venta</th></thead>
+        <tr>
+          <th width="20%">Comprador</th>
+          <td>
+            <div class="field">
+              <p class="control">
+                <span class="select">
+                  <select name="cliente" id="cliente" required>
+                    <option value="">Seleccione</option>
+                    <option value="mercado la esquina">Mercado de la esquina</option>
+                  </select>
+                </span>
+              </p>
+            </div>
+          </td>
+          <th width="20%" style="text-align:center;">Tipo de pago</th>
+          <td>
+            <div class="field">
+              <p class="control">
+                <span class="select">
+                  <select name="t_pago" required>
+                    <option value="">Seleccione</option>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="cheque">Cheque</option>
+                    <option value="transferencia">Transferencia</option>
+                  </select>
+                </span>
+              </p>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" class="table is-bordered is-narrow">
+        <tr>
+          <th width="20%" style="text-align:center;">Producto</th>
+          <th width="10%" style="text-align:center;">Precio +IVA</th>
+          <th width="10%" style="text-align:center;">Cantidad</th>
+          <th width="10%" style="text-align:center;">Total</th>
+        </tr>
+        <table name="clon" id="tabla_1" class="table is-bordered is-narrow">
+          <tr>
+            <td><!-- Producto -->
+              <div class="field">
+                <p class="control" style="text-align: center;">
+                  <span class="select is-small">
+                    <select name="id_pro[]" id="producto_1" required></select>
+                  </span>
+                </p>
+              </div>
+            </td>
+
+            <td><!-- Precio + IVA -->
+              <p class="control has-icon has-icon-right">
+                <input type="text" name="valor[]" id="valor_1" class="input is-small" size="5" disabled>
+                <span class="icon is-small">
+                  <i class="fa"></i>
+                </span>
+              </p>
+            </td>        
+            
+            <td><!-- Cantidad -->
+              <p class="control has-icon has-icon-right">
+                <input type="text" name="cant[]" id="cant_1" onchange="calc()" class="input num-only is-small" size="5" autocomplete="off" required>
+                <span class="icon is-small">
+                  <i class="fa"></i>
+                </span>
+              </p>
+            </td>
+
+            <td><!-- Total -->
+              <p class="control has-icon has-icon-right">
+                <input type="text" name="total[]" id="total_1" class="input is-small" size="5" disabled>
+                <span class="icon is-small">
+                  <i class="fa fa-money"></i>
+                </span>
+              </p>
+            </td>
+
+            <td width="2%"><!-- Agregar -->
+              <button type="button" id="1_add" class="button is-primary is-small add">
+                <span class="icon is-small">
+                  <i class="fa fa-plus"></i>
+                </span>
+              </button>
+            </td>
+          </tr>
+        </table>
+        
+        <input type="hidden" name="quest" value="add">
+        <input type="hidden" name="count" value="1">
+
+        <center>
+        <tr>
+          <td colspan="6" class="has-text-centered">
+            <button type="submit" class="button is-info">Procesar</button>
+          </td>
+        </tr>
+        </center>
+      </table>
+    </form>
+  </section>
+</div>
+<script src="ventas.js"></script>
+<script>
+  $(document).keypress(function(e) {
+  if(e.keyCode === 13){
+    console.log(control)
+    $('#'+control+'_add').click();
+    return false;
+  }
+});
+</script>
